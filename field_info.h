@@ -10,6 +10,7 @@ typedef struct FieldInfo {
     void (*mul)(const void* a, const void* b, void* result);
     void (*scalar_mul)(const void* value, const void* scalar, void* result);
 
+    void (*zero)(void* result);
     void (*copy)(const void* src, void* dst);
     void (*print)(const void* value);
     void (*destroy)(void* value);

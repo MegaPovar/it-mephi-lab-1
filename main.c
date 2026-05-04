@@ -6,12 +6,12 @@
 #include "complex.h"
 #include "tests.h"
 
-static void clear_input_buffer(void) {
+static void clear_input_buffer(void) { // дочистить плохой ввод
     int ch;
     while ((ch = getchar()) != '\n' && ch != EOF) {}
 }
 
-static int read_int(const char* prompt, int* value) {
+static int read_int(const char* prompt, int* value) { // ввод целого
     printf("%s", prompt);
     if (scanf("%d", value) != 1) {
         clear_input_buffer();
@@ -20,7 +20,7 @@ static int read_int(const char* prompt, int* value) {
     return 1;
 }
 
-static int read_size(const char* prompt, int* value) {
+static int read_size(const char* prompt, int* value) { // ввод размера
     printf("%s", prompt);
     if (scanf("%d", value) != 1) {
         clear_input_buffer();
@@ -32,7 +32,7 @@ static int read_size(const char* prompt, int* value) {
     return 1;
 }
 
-static void print_matrix(const Matrix* matrix) {
+static void print_matrix(const Matrix* matrix) { // показать матрицу
     int i;
     int j;
 
@@ -50,7 +50,19 @@ static void print_matrix(const Matrix* matrix) {
     }
 }
 
-static int input_matrix(Matrix* matrix) {
+static void print_menu(void) { // главное меню
+    printf("\n=== Полиморфная квадратная матрица (вариант 21) ===\n");
+    printf("1. Создать матрицу A\n");
+    printf("2. Создать матрицу B\n");
+    printf("3. Сложить матрицы (A + B)\n");
+    printf("4. Умножить матрицы (A * B)\n");
+    printf("5. Умножить матрицу A на скаляр\n");
+    printf("6. Показать матрицу\n");
+    printf("7. Запустить встроенные тесты\n");
+    printf("0. Выход\n");
+}
+
+static int input_matrix(Matrix* matrix) { // ввод всех элементов
     int i;
     int j;
 
@@ -98,6 +110,7 @@ static int input_matrix(Matrix* matrix) {
 
 int main(void) {
 
+    printf("Запуск встроенных тестов предметной логики...\n");
     run_all_tests();
 
     Matrix A;
@@ -111,14 +124,7 @@ int main(void) {
     int command;
     int off_prog = 0;
 
-    printf("\n=== Полиморфная квадратная матрица (вариант 21) ===\n");
-    printf("1. Создать матрицу A\n");
-    printf("2. Создать матрицу B\n");
-    printf("3. Сложить матрицы (A + B)\n");
-    printf("4. Умножить матрицы (A * B)\n");
-    printf("5. Умножить матрицу A на скаляр\n");
-    printf("6. Показать матрицу\n");
-    printf("0. Выход\n");
+    print_menu();
 
     while (!off_prog) {
 
@@ -131,6 +137,7 @@ int main(void) {
 
             case 1:
             case 2: {
+                // создание A или B, логика почти одна и та же
 
                 int n;
                 int type_number;
@@ -191,6 +198,7 @@ int main(void) {
             }
 
             case 3: {
+                // результат сложения кладу в отдельную матрицу
 
                 if (!has_A || !has_B) {
                     printf("Сначала создайте A и B\n");
@@ -226,6 +234,7 @@ int main(void) {
             }
 
             case 4: {
+                // тут обычная проверка перед умножением
 
                 if (!has_A || !has_B) {
                     printf("Сначала создайте A и B\n");
@@ -261,6 +270,7 @@ int main(void) {
             }
 
             case 5: {
+                // скаляр зависит от типа матрицы
 
                 if (!has_A) {
                     printf("Сначала создайте A\n");
@@ -328,6 +338,7 @@ int main(void) {
             }
 
             case 6: {
+                // выбираю, что именно вывести
 
                 int show_which;
                 const Matrix* matrix_to_show = NULL;
@@ -354,6 +365,10 @@ int main(void) {
 
                 break;
             }
+
+            case 7:
+                run_all_tests();
+                break;
 
             case 0:
                 off_prog = 1;

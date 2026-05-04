@@ -10,6 +10,7 @@ Complex complex_create(double re, double im);
 void complex_add(const void* a, const void* b, void* result);
 void complex_mul(const void* a, const void* b, void* result);
 void complex_scalar_mul(const void* value, const void* scalar, void* result);
+void complex_zero(void* result);
 void complex_copy(const void* src, void* dst);
 void complex_print(const void* value);
 void complex_destroy(void* value);

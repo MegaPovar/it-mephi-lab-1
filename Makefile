@@ -1,5 +1,11 @@
-matrix_lab: main.c matrix.c field_info.c complex.c tests.c
-	gcc -o matrix_lab main.c matrix.c field_info.c complex.c tests.c -lm
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -pedantic
+TARGET = matrix_lab
+SOURCES = main.c matrix.c field_info.c complex.c tests.c
 
+$(TARGET): $(SOURCES)
+	$(CC) $(CFLAGS) -o $(TARGET) $(SOURCES) -lm
+
+.PHONY: clean
 clean:
-	rm -f matrix_lab
+	rm -f $(TARGET)
